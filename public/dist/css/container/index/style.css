@@ -32,4 +32,10 @@
   border-radius: 20px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 /*# sourceMappingURL=style.css.map */

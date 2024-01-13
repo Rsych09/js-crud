@@ -31,10 +31,19 @@ class User {
 router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
 
+  const list = User.getList()
+
   // ↙️ cюди вводимо назву файлу з сontainer
   res.render('index', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'index',
+
+    data: {
+      users: {
+        list,
+        isEmpty: list.lenth === 0,
+      },
+    },
   })
   // ↑↑ сюди вводимо JSON дані
 })
@@ -45,18 +54,19 @@ router.get('/', function (req, res) {
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
 router.post('/user-create', function (req, res) {
-  const { email, login, password } = req.body;
+  const { email, login, password } = req.body
 
   // Створення нового об'єкта користувача
   const user = new User(email, login, password)
 
+  User.add(user)
+
+  console.log(user)
   console.log(User.getList())
 
   res.render('user-create', {
-    style: 'user-create'
+    style: 'user-create',
   })
-
-  console.log(user)  
 })
 
 // ================================================================
