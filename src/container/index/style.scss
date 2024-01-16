@@ -46,3 +46,11 @@ main {
     flex-direction: column;
     gap: s.space(10);
 }
+
+.user_list {
+    li {
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}

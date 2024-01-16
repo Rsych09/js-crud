@@ -34,13 +34,14 @@
         <div class="form">
             <h1 class="form__title">Створити користувача</h1>
             <div class="user_list">
+                {{!-- <mark>Список користувачів пустий</mark> --}}
                 {{#with data.users}}
                 {{#if isEmpty}}
                 <mark>Список користувачів пустий</mark>
                 {{else}}
                 <ul>
                     {{#each list}}
-                    <li>{{email}} | {{login}}</li>
+                    <li>{{email}} | {{login}} <a href="/user-delete?id={{id}}">(Видалити)</a></li>
                     {{/each}}
                 </ul>
                 {{/if}}

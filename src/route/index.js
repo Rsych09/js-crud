@@ -12,14 +12,29 @@ class User {
     this.email = email
     this.login = login
     this.password = password
+    this.id = new Date().getTime()
   }
 
   static add = (user) => {
     this.#list.push(user)
   }
 
-  static getList = () => {
-    return this.#list
+  static getList = () => this.#list
+
+  static getById = (id) =>
+    this.#list.find((user) => user.id === id)
+
+  static deleteById = (id) => {
+    const index = this.#list.findIndex(
+      (user) => user.id === id,
+    )
+
+    if (index !== -1) {
+      this.#list.splice(index, 1)
+      return true
+    } else {
+      return false
+    }
   }
 }
 
@@ -64,8 +79,20 @@ router.post('/user-create', function (req, res) {
   console.log(user)
   console.log(User.getList())
 
-  res.render('user-create', {
-    style: 'user-create',
+  res.render('success-info', {
+    style: 'success-info',
+    info: 'Користувач створенний',
+  })
+})
+
+router.get('/user-delete', function (req, res) {
+  const { id } = req.query
+
+  User.deleteById(Number(id))
+
+  res.render('success-info', {
+    style: 'success-info',
+    info: 'Користувач видалений',
   })
 })
 
