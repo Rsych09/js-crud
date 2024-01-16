@@ -37,16 +37,21 @@ class User {
     }
   }
 
-  static updateById = (id, { email }) => {
+  static updateById = (id, data) => {
     const user = this.getById(id)
 
     if (user) {
-      if (email) {
-        user.email = email
-      }
+      this.update(user, data)
+
       return true
     } else {
       return false
+    }
+  }
+
+  static update = (user, { email }) => {
+    if (email) {
+      user.email = email
     }
   }
 }
@@ -69,7 +74,7 @@ router.get('/', function (req, res) {
     data: {
       users: {
         list,
-        isEmpty: list.lenth === 0,
+        isEmpty: list.length === 0,
       },
     },
   })
@@ -112,9 +117,14 @@ router.get('/user-delete', function (req, res) {
 router.post('/user-update', function (req, res) {
   const { email, password, id } = req.body
 
-  console.log(email, password, id)
+  let result = false
 
-  const result = User.updateById(id, email)
+  const user = User.getById(Number(id))
+
+  if (user) {
+    User.update(user, { email })
+    result = true
+  }
 
   res.render('success-info', {
     style: 'success-info',
