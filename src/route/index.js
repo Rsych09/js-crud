@@ -36,6 +36,19 @@ class User {
       return false
     }
   }
+
+  static updateById = (id, { email }) => {
+    const user = this.getById(id)
+
+    if (user) {
+      if (email) {
+        user.email = email
+      }
+      return true
+    } else {
+      return false
+    }
+  }
 }
 
 // ================================================================
@@ -96,6 +109,20 @@ router.get('/user-delete', function (req, res) {
   })
 })
 
+router.post('/user-update', function (req, res) {
+  const { email, password, id } = req.body
+
+  console.log(email, password, id)
+
+  const result = User.updateById(id, email)
+
+  res.render('success-info', {
+    style: 'success-info',
+    info: result
+      ? 'Емайл пошта оновлена'
+      : 'Сталася помилка',
+  })
+})
 // ================================================================
 // Підключаємо роутер до бек-енду
 module.exports = router
