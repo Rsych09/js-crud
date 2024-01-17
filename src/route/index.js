@@ -59,10 +59,21 @@ class User {
 class Product {
   static #list = []
 
+  constructor(name, price, description) {
+    this.name = name
+    this.price = price
+    this.description = description
+    this.id = Math.floor(Math.random() * 100000)
+    this.createDate = () => {
+      this.date = new Date().toISOString()
+    }
+  }
+
   static getList = () => this.#list
 
-  static add = (product) => this.#list.push(product)
-
+  static add = (product) => {
+    this.#list.push(product)
+  }
   static getById = (id) =>
     this.#list.find((product) => product.id === id)
 
