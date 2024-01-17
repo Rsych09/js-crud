@@ -56,6 +56,42 @@ class User {
   }
 }
 
+class Product {
+  static #list = []
+
+  static getList = () => this.#list
+
+  static add = (product) => this.#list.push(product)
+
+  static getById = (id) =>
+    this.#list.find((product) => product.id === id)
+
+  static updateById = (id, data) => {
+    const productt = this.getById(id, data)
+
+    if (productt) {
+      this.update(price, name, description)
+
+      return true
+    } else {
+      return false
+    }
+  }
+
+  static deleteById = (id) => {
+    const index = this.findIndex(
+      (product) => product.id === id,
+    )
+
+    if (index !== -1) {
+      this.#list.splice(index, 1)
+
+      return true
+    } else {
+      return false
+    }
+  }
+}
 // ================================================================
 
 // router.get Створює нам один ентпоїнт
@@ -131,6 +167,28 @@ router.post('/user-update', function (req, res) {
     info: result
       ? 'Емайл пошта оновлена'
       : 'Сталася помилка',
+  })
+})
+
+router.get('/product-create', function (req, res) {
+  const { name, price, description } = req.body
+
+  const product = new Product(name, price, description)
+
+  Product.add(product)
+
+  console.log(product)
+  console.log(Product.getList())
+
+  res.render('product-create', {
+    style: 'product-create',
+    info: 'Користувач створенний',
+  })
+})
+
+router.post('/product-create', function (req, res) {
+  res.render('alert', {
+    style: 'alert',
   })
 })
 // ================================================================

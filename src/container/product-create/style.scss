@@ -1,0 +1,97 @@
+@use '../../lib/service.scss' as s;
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    min-width: 900px;
+    padding: s.space(4);
+    gap: s.space(8);
+    margin-top: 100px;
+
+
+    &__title {
+        font-size: 30px;
+        font-weight: bold;
+        padding-bottom: s.space(1);
+        color: #1364f9;
+    }
+
+    &__content {
+        display: grid;
+        gap: s.space(6);
+        padding: 18px;
+        -webkit-box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+        -moz-box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+        box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+
+        border-radius: 10px 10px 10px 10px;
+    }
+
+    &__info {
+        font-size: 20px;
+        color: #434343;
+    }
+
+    &__name__price {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: s.space(2);
+    }
+
+    &__label {
+        font-size: 14px;
+        color: #888b8f;
+    }
+
+    &__input_ {
+        width: 411px;
+    }
+
+    &__view {
+        color: #b6b6b6;
+        font-size: 12px;
+    }
+
+    &__input {
+        border: 1px solid s.color('light');
+        padding: s.space(2);
+        border-radius: 5px;
+    }
+
+    &__input__ {
+        height: 65px;
+    }
+
+    &__button {
+        border: 1px solid s.color('light');
+        padding: s.space(2);
+        border-radius: 5px;
+        color: white;
+        background-color: #0072f8;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: s.space(10);
+}
+
+.user_list {
+    li {
+        padding-right: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
