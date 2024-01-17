@@ -182,24 +182,19 @@ router.post('/user-update', function (req, res) {
 })
 
 router.get('/product-create', function (req, res) {
-  const { name, price, description } = req.body
-
-  const product = new Product(name, price, description)
-
-  Product.add(product)
-
-  console.log(product)
-  console.log(Product.getList())
-
   res.render('product-create', {
     style: 'product-create',
-    info: 'Користувач створенний',
   })
 })
-
 router.post('/product-create', function (req, res) {
+  const { name, price, description } = req.body
+  const product = new Product(name, price, description)
+  Product.add(product)
+  console.log(Product.getList())
+
   res.render('alert', {
     style: 'alert',
+    info: 'Товар успішно додано',
   })
 })
 // ================================================================
