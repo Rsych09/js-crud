@@ -197,6 +197,17 @@ router.post('/product-create', function (req, res) {
     info: 'Товар успішно додано',
   })
 })
+
+router.get('/product-list', function (req, res) {
+  res.render('product-list', {
+    style: 'product-list',
+  })
+})
+router.post('/product-list', function (req, res) {
+  res.render('product-list', {
+    style: 'product-list',
+  })
+})
 // ================================================================
 // Підключаємо роутер до бек-енду
 module.exports = router
