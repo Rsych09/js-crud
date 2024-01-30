@@ -4,7 +4,14 @@
 }}
 
 <main>
-    {{> product-list}}
+    <section class="product">
+        <div class="product__content">
+            <h2 class="product__title">Список товарів</h2>
+            <div class="product__card">
+                {{> product-card}}
+            </div>
+        </div>
+    </section>
 </main>
 
 

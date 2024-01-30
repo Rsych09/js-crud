@@ -1,0 +1,84 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.edit {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  max-width: 1000px;
+  min-width: 1000px;
+}
+.edit__title {
+  font-size: 20px;
+  color: #2571f9;
+  margin-bottom: 20px;
+}
+.edit__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit__menu__title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.edit__menu {
+  padding: 15px;
+  border-radius: 5px;
+  -webkit-box-shadow: 6px 6px 21px 10px rgb(233, 233, 233);
+  -moz-box-shadow: 6px 6px 21px 10px rgb(233, 233, 233);
+  box-shadow: 6px 6px 21px 10px rgb(233, 233, 233);
+}
+.edit__input {
+  border: 1px solid #e8ebed;
+  border-radius: 5px;
+}
+.edit__inputt {
+  border: 1px solid #e8ebed;
+  border-radius: 5px;
+  width: 311px;
+}
+.edit__input__big {
+  height: 60px;
+}
+.edit__input__row {
+  display: flex;
+  flex-direction: column;
+}
+.edit__label {
+  font-size: 15px;
+  color: #84888b;
+}
+.edit__span {
+  font-size: 13px;
+  color: #84888b;
+}
+.edit__button {
+  color: white;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 173px;
+  padding-right: 173px;
+}
+.edit__button_blue {
+  background-color: #0072f8;
+}
+.edit__button_red {
+  background-color: #ff0011;
+}
+
+.edit__input__roww {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit__row {
+  display: flex;
+  flex-direction: column;
+}
+
+/*# sourceMappingURL=style.css.map */

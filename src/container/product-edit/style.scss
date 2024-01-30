@@ -1,0 +1,95 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 1000px;
+    min-width: 1000px;
+
+    &__title {
+        font-size: 20px;
+        color: #2571f9;
+        margin-bottom: 20px;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    &__menu__title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    &__menu {
+        padding: 15px;
+        border-radius: 5px;
+        -webkit-box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+        -moz-box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+        box-shadow: 6px 6px 21px 10px rgba(233, 233, 233, 1);
+    }
+
+    &__input {
+        border: 1px solid #e8ebed;
+        border-radius: 5px;
+    }
+
+    &__inputt {
+        border: 1px solid #e8ebed;
+        border-radius: 5px;
+        width: 311px;
+    }
+
+    &__input__big {
+        height: 60px;
+    }
+
+    &__input__row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__label {
+        font-size: 15px;
+        color: #84888b;
+    }
+
+    &__span {
+        font-size: 13px;
+        color: #84888b;
+    }
+
+    &__button {
+        color: white;
+        border-radius: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 173px;
+        padding-right: 173px;
+    }
+
+    &__button_blue {
+        background-color: #0072f8;
+    }
+
+    &__button_red {
+        background-color: #ff0011;
+    }
+}
+
+.edit__input__roww {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.edit__row {
+    display: flex;
+    flex-direction: column;
+}

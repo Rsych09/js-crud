@@ -1,0 +1,62 @@
+{{!
+Це код container файлу для index сторінки,
+в якому міститься код, котрий буде віддаватися по шляху (PATH) - "/"
+}}
+<main>
+
+    {{!-- {{#if isEmpty}}
+    <mark>Пустий</mark>
+    {{else}}
+    {{#each list}} --}}
+    <section class="edit">
+        <div class="edit__row">
+            <h2 class="edit__title">Редагування товару</h2>
+            {{#with data}}
+            <form method="post" action="/product-edit">
+                <div class="edit__menu">
+
+                    <h3 class="edit__menu__title">Інформація про товар</h3>
+                    <div class="edit__input__roww">
+                        <div class="edit__input__row">
+                            <label for="name" class="edit__label">Назва товару</label>
+                            <input type="text" class="edit__inputt" value="{{name}}">
+                        </div>
+
+                        <div class="edit__input__row">
+                            <label for="price" class="edit__label">Ціна</label>
+                            <input type="text" class="edit__inputt" value="{{[price]}}">
+                        </div>
+
+                        <div class="edit__input__row">
+                            <label for="id" class="edit__label">ID</label>
+                            <input type="text" class="edit__inputt" value="{{id}}">
+                        </div>
+                    </div>
+
+                    <div class="edit__input__row">
+                        <label for="id" class="edit__label">Короткий опис товару</label>
+                        <input type="text" class="edit__input edit__input__big" value="{{description}}">
+                        <span class="edit__span">Відображення у картці товару</span>
+                    </div>
+                    <div class="edit__buttons">
+                        <button class="edit__button edit__button_blue">Зберегти оновлення</button>
+                        <button class="edit__button edit__button_red">Видалити товар</button>
+                    </div>
+
+                </div>
+            </form>
+            {{/with}}
+        </div>
+    </section>
+    {{!-- {{/each}}
+    {{/if}} --}}
+
+</main>
+
+
+{{!
+Цей код містить лише те, що буде виводитись в
+
+<body>
+    Адже наш layout/default.hbs має вже структуру HTML
+    }}
