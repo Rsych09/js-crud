@@ -56,6 +56,8 @@ class User {
   }
 }
 
+// ================================================================
+
 class Product {
   static #list = []
 
@@ -78,10 +80,20 @@ class Product {
     this.#list.find((product) => product.id === id)
 
   static updateById = (id, data) => {
-    const productt = this.getById(id, data)
+    const product = this.getById(id)
 
-    if (productt) {
-      this.update(price, name, description)
+    if (product) {
+      if (data.name) {
+        product.name = data.name
+      }
+
+      if (data.price) {
+        product.price = data.price
+      }
+
+      if (data.description) {
+        product.description = data.description
+      }
 
       return true
     } else {
@@ -90,13 +102,11 @@ class Product {
   }
 
   static deleteById = (id) => {
-    const index = this.findIndex(
+    const index = this.#list.findIndex(
       (product) => product.id === id,
     )
-
     if (index !== -1) {
       this.#list.splice(index, 1)
-
       return true
     } else {
       return false
@@ -281,6 +291,17 @@ router.post('/product-edit', function (req, res) {
     })
   }
   // ↑↑ сюди вводимо JSON дані
+})
+
+router.get('/product-delete', function (req, res) {
+  const { id } = req.query
+  Product.deleteById(Number(id))
+  // res.render генерує нам HTML сторінку
+  // console.log(product)
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('success-info', {
+    style: 'success-info',
+  })
 })
 
 // ================================================================
