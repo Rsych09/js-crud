@@ -1,0 +1,20 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../component/heading/style.scss' as heading;
+@use '../../component/divider/style.scss' as divider;
+@use '../../component/field/style.scss' as field;
+@use '../../component/button/style.scss' as button;
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}

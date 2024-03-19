@@ -1,0 +1,48 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../component/heading/style.scss' as heading;
+@use '../../component/user-product/style.scss' as userProduct;
+@use '../../component/button/style.scss' as button;
+// @use '../../component/orders-card/style.scss' as orders-card;
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.orders {
+    // display: grid;
+    // grid-template-columns: repeat(4, 1fr);
+    // grid-template-rows: repeat(5, 1fr);
+    // grid-column-gap: 0px;
+    // grid-row-gap: 0px;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    text-decoration: none;
+}
+
+.card__id {
+    color: #808080;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    justify-self: center;
+    align-self: center;
+}
+
+.card-titles {
+    color: #808080;
+}
+
+.card__title {
+    grid-row-start: 2;
+}
+
+.card__price {
+    grid-row-start: 2;
+}

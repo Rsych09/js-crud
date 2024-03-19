@@ -1,0 +1,17 @@
+@use '../../lib/service.scss' as s;
+
+@use '../../component/heading/style.scss' as heading;
+@use '../../component/user-product/style.scss' as userProduct;
+@use '../../component/button/style.scss' as button;
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.form {
+    padding: 15px;
+    border: 1px solid black;
+}

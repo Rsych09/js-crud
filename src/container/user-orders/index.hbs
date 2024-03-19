@@ -1,0 +1,11 @@
+<main class="main">
+    {{> heading title="Мої замовлення"}}
+
+    <div class="orders">
+        {{#with data.purchases}}
+        {{#each list}}
+        {{>orders-card}}
+        {{/each}}
+        {{/with}}
+    </div>
+</main>

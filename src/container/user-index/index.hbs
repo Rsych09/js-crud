@@ -1,0 +1,12 @@
+<main class="main">
+    {{> heading title="Товари" info="Intel Core i5-10400F (2.9 - 4.3 ГГц) / RAM 16 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia
+    GeForce GTX 1660 Super, 6 ГБ / без ОД / LAN / без ОС"}}
+
+    <div class="product-list">
+        {{#each data.list}}
+        {{> user-product data=this}}
+        {{/each}}
+    </div>
+
+    <a href="/user-orders" class="button">Мої замовлення</a>
+</main>
