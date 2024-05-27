@@ -1,0 +1,28 @@
+<main class="main">
+    {{> heading title="Інші товари" info="Компютери та ноутбуки"}}
+
+    {{#with data.product}}
+    <form method="post" action="/purchase-create?id={{id}}">
+        <div class="product-info">
+
+
+            <img src="{{img}}" alt="{{title}}" class="product-info__image">
+            <h2 class="product-info__title">{{title}}</h2>
+            <p class="product-info__subtitle">{{description}}</p>
+
+            {{>divider}}
+
+            {{#each category}}
+            <span class="product-info__category--{{id}}">{{text}}</span>
+            {{/each}}
+
+            {{>divider}}
+
+            {{>field label="Кількість" type="number" name="amount" value="1"}}
+
+            {{>button text="Купити зараз" price=price}}
+
+        </div>
+    </form>
+    {{/with}}
+</main>

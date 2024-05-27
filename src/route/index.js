@@ -5,114 +5,95 @@ const router = express.Router()
 
 // ================================================================
 
-class User {
+class Product {
   static #list = []
 
-  constructor(email, login, password) {
-    this.email = email
-    this.login = login
-    this.password = password
-    this.id = new Date().getTime()
+  static #count = 0
+
+  constructor(
+    img,
+    title,
+    description,
+    category,
+    price,
+    amount = 0,
+  ) {
+    this.id = ++Product.#count
+    this.img = img
+    this.title = title
+    this.description = description
+    this.category = category
+    this.price = price
+    this.amount = this.amount
   }
 
-  static add = (user) => {
-    this.#list.push(user)
+  static add = (...data) => {
+    const newProduct = new Product(...data)
+
+    this.#list.push(newProduct)
   }
 
-  static getList = () => this.#list
+  static getList = () => {
+    return this.#list
+  }
 
-  static getById = (id) =>
-    this.#list.find((user) => user.id === id)
+  static getByid = (id) => {
+    return this.#list.find((product) => product.id === id)
+  }
 
-  static deleteById = (id) => {
-    const index = this.#list.findIndex(
-      (user) => user.id === id,
+  static getRandomList = (id) => {
+    const filteredList = this.#list.filter(
+      (product) => product.id !== id,
     )
 
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
+    const shuffledList = filteredList.sort(
+      () => Math.random() - 0.5,
+    )
+
+    return shuffledList.slice(0.3)
   }
+}
 
-  static updateById = (id, data) => {
-    const user = this.getById(id)
+Product.add(
+  'https://picsum.photos/200/300',
+  'Компьютер ARTLINE Gaming DRGN (DRGNv19) Powered by MSI',
+  'Intel Core i5-12400F (2.5 - 4.4 ГГц) / RAM 32 ГБ / SSD 1 ТБ / nVidia GeForce RTX 4060 Ti, 8 ГБ / без ОД / LAN / без ОС',
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
+Product.add(
+  'https://picsum.photos/200/300',
+  'Компьютер ARTLINE Gaming DRGN (DRGNv19) Powered by MSI',
+  'Intel Core i5-12400F (2.5 - 4.4 ГГц) / RAM 32 ГБ / SSD 1 ТБ / nVidia GeForce RTX 4060 Ti, 8 ГБ / без ОД / LAN / без ОС',
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
+Product.add(
+  'https://picsum.photos/200/300',
+  'Компьютер ARTLINE Gaming DRGN (DRGNv19) Powered by MSI',
+  'Intel Core i5-12400F (2.5 - 4.4 ГГц) / RAM 32 ГБ / SSD 1 ТБ / nVidia GeForce RTX 4060 Ti, 8 ГБ / без ОД / LAN / без ОС',
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
 
-    if (user) {
-      this.update(user, data)
-
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static update = (user, { email }) => {
-    if (email) {
-      user.email = email
-    }
-  }
+class Purchase {
+  static DELIVERY_PRICE = 150
 }
 
 // ================================================================
 
-class Product {
-  static #list = []
-
-  constructor(name, price, description) {
-    this.name = name
-    this.price = price
-    this.description = description
-    this.id = Math.floor(Math.random() * 100000)
-    this.createDate = () => {
-      this.date = new Date().toISOString()
-    }
-  }
-
-  static getList = () => this.#list
-
-  static add = (product) => {
-    this.#list.push(product)
-  }
-  static getById = (id) =>
-    this.#list.find((product) => product.id === id)
-
-  static updateById = (id, data) => {
-    const product = this.getById(id)
-
-    if (product) {
-      if (data.name) {
-        product.name = data.name
-      }
-
-      if (data.price) {
-        product.price = data.price
-      }
-
-      if (data.description) {
-        product.description = data.description
-      }
-
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static deleteById = (id) => {
-    const index = this.#list.findIndex(
-      (product) => product.id === id,
-    )
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
-  }
-}
 // ================================================================
 
 // router.get Створює нам один ентпоїнт
@@ -121,21 +102,103 @@ class Product {
 router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
 
-  const list = User.getList()
-
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('index', {
+  res.render('purchase-index', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'index',
+    style: 'purchase-index',
 
     data: {
-      users: {
-        list,
-        isEmpty: list.length === 0,
-      },
+      list: Product.getList(),
     },
   })
   // ↑↑ сюди вводимо JSON дані
+})
+
+router.get('/purchase-product', function (req, res) {
+  const id = Number(req.query.id)
+
+  res.render('purchase-product', {
+    style: 'purchase-product',
+
+    data: {
+      list: Product.getRandomList(),
+      product: Product.getByid(id),
+    },
+  })
+})
+
+router.post('/purchase-create', function (req, res) {
+  const id = Number(req.query.id)
+  const amount = Number(req.body.amount)
+
+  console.log(id, amount)
+
+  if (amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+
+      data: {
+        message: 'помилка',
+        info: 'Некоректна кількість товару',
+        link: `/purchase-product?id=${id}`,
+      },
+    })
+  }
+
+  const product = Product.getByid(id)
+
+  if (product.amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+
+      data: {
+        message: 'помилка',
+        info: 'Такої кількості товару нема в наявності',
+        link: `/purchase-product?id=${id}`,
+      },
+    })
+  }
+
+  console.log(product, amount)
+
+  const productPrice = product.price * amount
+  const totalPrice = productPrice + Purchase.DELIVERY_PRICE
+
+  res.render('purchase-create', {
+    style: 'purchase-create',
+
+    data: {
+      id: product.id,
+
+      cart: [
+        {
+          text: `${product.title} (${amount} шт)`,
+          price: productPrice,
+        },
+        {
+          text: `Доставка`,
+          price: Purchase.DELIVERY_PRICE,
+        },
+      ],
+      totalPrice,
+      productPrice,
+      deliveryPrice: Purchase.DELIVERY_PRICE,
+    },
+  })
+})
+
+router.post('/purchase-submit', function (req, res) {
+  console.log(req.body)
+
+  res.render('alert', {
+    style: 'alert',
+
+    data: {
+      message: 'Успішно',
+      info: 'Замовлення',
+      link: `/purchase-list`,
+    },
+  })
 })
 
 // ================================================================
@@ -143,166 +206,6 @@ router.get('/', function (req, res) {
 // router.get Створює нам один ентпоїнт
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
-router.post('/user-create', function (req, res) {
-  const { email, login, password } = req.body
-
-  // Створення нового об'єкта користувача
-  const user = new User(email, login, password)
-
-  User.add(user)
-
-  console.log(user)
-  console.log(User.getList())
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: 'Користувач створенний',
-  })
-})
-
-router.get('/user-delete', function (req, res) {
-  const { id } = req.query
-
-  User.deleteById(Number(id))
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: 'Користувач видалений',
-  })
-})
-
-router.post('/user-update', function (req, res) {
-  const { email, password, id } = req.body
-
-  let result = false
-
-  const user = User.getById(Number(id))
-
-  if (user) {
-    User.update(user, { email })
-    result = true
-  }
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: result
-      ? 'Емайл пошта оновлена'
-      : 'Сталася помилка',
-  })
-})
-
-router.get('/product-create', function (req, res) {
-  res.render('product-create', {
-    style: 'product-create',
-  })
-})
-router.post('/product-create', function (req, res) {
-  const { name, price, description } = req.body
-  const product = new Product(name, price, description)
-  Product.add(product)
-  console.log(Product.getList())
-
-  res.render('alert', {
-    style: 'alert',
-    info: 'Товар успішно додано',
-  })
-})
-
-router.get('/product-list', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  const list = Product.getList()
-  console.log(list)
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('product-list', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'product-list',
-    data: {
-      products: {
-        list,
-        isEmpty: list.length === 0,
-      },
-    },
-  })
-  // ↑↑ сюди вводимо JSON дані
-})
-router.post('/product-list', function (req, res) {
-  const { name, price, description, id } = req.body
-
-  const product = new Product(name, price, description, id)
-  Product.add(product)
-
-  console.log(user)
-  console.log(User.getList())
-  res.render('product-list', {
-    style: 'product-list',
-  })
-})
-
-router.get('/product-edit', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  const { id } = req.query
-  const product = Product.getById(Number(id))
-  // console.log(product)
-  if (product) {
-    // ↙️ cюди вводимо назву файлу з сontainer
-    return res.render('product-edit', {
-      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-      style: 'product-edit',
-      data: {
-        name: product.name,
-        price: product.price,
-        id: product.id,
-        description: product.description,
-      },
-    })
-  } else {
-    return res.render('product-alert', {
-      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-      style: 'product-alert',
-      info: 'Продукту за таким ID не знайдено',
-    })
-  }
-})
-// ↑↑ сюди вводимо JSON дані
-// ================================================================
-router.post('/product-edit', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  const { id, name, price, description } = req.body
-  const product = Product.updateById(Number(id), {
-    name,
-    price,
-    description,
-  })
-  console.log(id)
-  console.log(product)
-  if (product) {
-    // ↙️ cюди вводимо назву файлу з сontainer
-    res.render('product-alert', {
-      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-      style: 'product-alert',
-      info: 'Інформація про товар оновлена',
-    })
-  } else {
-    // ↙️ cюди вводимо назву файлу з сontainer
-    res.render('product-alert', {
-      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-      style: 'product-alert',
-      info: 'Сталася помилка',
-    })
-  }
-  // ↑↑ сюди вводимо JSON дані
-})
-
-router.get('/product-delete', function (req, res) {
-  const { id } = req.query
-  Product.deleteById(Number(id))
-  // res.render генерує нам HTML сторінку
-  // console.log(product)
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('success-info', {
-    style: 'success-info',
-  })
-})
 
 // ================================================================
 // Підключаємо роутер до бек-енду
